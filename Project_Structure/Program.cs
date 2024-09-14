@@ -13,6 +13,7 @@ namespace Project_Structure
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("hello from Dev");
             CreateHostBuilder(args).Build().Run();
         }
 

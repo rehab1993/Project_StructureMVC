@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -16,6 +17,10 @@ namespace Project_Structure
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllersWithViews();
+           // services.AddMvc();
+            //services.AddRazorPages();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +39,17 @@ namespace Project_Structure
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
+                endpoints.MapGet("/index", async context =>
+                {
+                    await context.Response.WriteAsync("Hello Route!");
+                });
+                //Default
+                endpoints.MapControllerRoute(
+                    name: "Default",
+                    pattern: "{Controller=Movies}/{action=Index}/{id:int?}");
+                    //defaults: new {action = "Index"},
+                    //constraints: new {id = new IntRouteConstraint()});
+                
             });
         }
     }
